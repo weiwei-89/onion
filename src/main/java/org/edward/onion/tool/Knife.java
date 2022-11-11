@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Knife {
-    private static final int INIT_SIZE = 10;
-
     private Knife() {
 
     }
@@ -22,6 +20,9 @@ public class Knife {
     }
 
     public Peel peel(Object target) throws Exception {
+        if(target == null) {
+            return null;
+        }
         if(target instanceof Map) {
             Map<String, Object> targetMap = (Map<String, Object>) target;
             Peel firstPeel = new Peel(targetMap.size());
@@ -80,11 +81,14 @@ public class Knife {
                 }
             } else if(targetFieldValue instanceof Iterable) {
                 Iterable<?> targetList = (Iterable<?>) targetFieldValue;
+                int targetCount = Box.getListCount(targetList);
+                if(targetCount == 0) {
+                    continue;
+                }
                 if(Box.isPrimitive(targetList)) {
                     peel.put(targetCut.tag(), targetList);
                 } else {
-                    // TODO 正确获取列表的长度，而不是无脑设置为一个估计值(参照下面Map的处理方式)
-                    List<Peel> peelList = new ArrayList<>(INIT_SIZE);
+                    List<Peel> peelList = new ArrayList<>(targetCount);
                     for(Object targetItem : targetList) {
                         Peel aPeel = new Peel();
                         this.peel(targetItem, aPeel);
@@ -94,6 +98,9 @@ public class Knife {
                 }
             } else if(targetFieldValue instanceof Map) {
                 Map<String, Object> targetFieldMap = (Map<String, Object>) targetFieldValue;
+                if(targetFieldMap.isEmpty()) {
+                    continue;
+                }
                 Peel mapPeel = new Peel(targetFieldMap.size());
                 for(Map.Entry<String, Object> entry : targetFieldMap.entrySet()) {
                     Object targetFieldMapValue = entry.getValue();

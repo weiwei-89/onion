@@ -4,9 +4,13 @@ import org.edward.onion.bind.model.EnumInfo;
 import org.edward.onion.bind.model.EnumInstance;
 
 import java.lang.reflect.Field;
+import java.util.Iterator;
 
 public class Box {
     public static boolean isPrimitive(Object target) {
+        if(target == null) {
+            return false;
+        }
         if(target instanceof String) {
             return true;
         }
@@ -23,6 +27,12 @@ public class Box {
     }
 
     public static boolean isPrimitive(Iterable<?> objectList) {
+        if(objectList == null) {
+            return false;
+        }
+        if(getListCount(objectList) == 0) {
+            return false;
+        }
         return isPrimitive(objectList.iterator().next());
     }
 
@@ -42,6 +52,9 @@ public class Box {
     }
 
     public static EnumInfo getEnumInfo(Enum target) throws Exception {
+        if(target == null) {
+            return null;
+        }
         Field[] targetFields = target.getClass().getDeclaredFields();
         if(targetFields==null || targetFields.length==0) {
             return null;
@@ -55,5 +68,17 @@ public class Box {
             }
         }
         return enumInfo;
+    }
+
+    public static int getListCount(Iterable<?> objectList) {
+        if(objectList == null) {
+            return 0;
+        }
+        int count = 0;
+        Iterator<?> iterator = objectList.iterator();
+        while(iterator.hasNext()) {
+            count++;
+        }
+        return count;
     }
 }
