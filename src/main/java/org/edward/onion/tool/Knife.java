@@ -101,22 +101,22 @@ public class Knife {
                 if(targetFieldMap.isEmpty()) {
                     continue;
                 }
-                Peel mapPeel = new Peel(targetFieldMap.size());
+                Peel peelMap = new Peel(targetFieldMap.size());
                 for(Map.Entry<String, Object> entry : targetFieldMap.entrySet()) {
                     Object targetFieldMapValue = entry.getValue();
                     if(Box.isPrimitive(targetFieldMapValue)) {
-                        mapPeel.put(entry.getKey(), String.valueOf(targetFieldMapValue));
+                        peelMap.put(entry.getKey(), String.valueOf(targetFieldMapValue));
                     } else {
                         Peel aPeel = new Peel();
                         this.peel(entry.getValue(), aPeel);
-                        mapPeel.put(entry.getKey(), aPeel);
+                        peelMap.put(entry.getKey(), aPeel);
                     }
                 }
-                peel.put(targetCut.tag(), mapPeel);
+                peel.put(targetCut.tag(), peelMap);
             } else {
                 Peel nextPeel = new Peel();
-                peel.put(targetCut.tag(), nextPeel);
                 this.peel(targetFieldValue, nextPeel);
+                peel.put(targetCut.tag(), nextPeel);
             }
         }
     }
