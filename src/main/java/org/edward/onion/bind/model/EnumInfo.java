@@ -9,7 +9,7 @@ public class EnumInfo extends HashMap<String, String> {
         super(DEFAULT_SIZE);
     }
 
-    public EnumInfo(int initSize) {
-        super(initSize);
+    public EnumInfo(int size) {
+        super(size);
     }
 }

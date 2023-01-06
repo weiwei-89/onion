@@ -9,7 +9,7 @@ public class Peel extends HashMap<String, Object> {
         super(DEFAULT_SIZE);
     }
 
-    public Peel(int initSize) {
-        super(initSize);
+    public Peel(int size) {
+        super(size);
     }
 }

@@ -1,9 +1,10 @@
-package org.edward.onion.tool;
+package org.edward.onion;
 
 import org.edward.onion.bind.annotation.Cut;
 import org.edward.onion.bind.model.EnumInfo;
 import org.edward.onion.bind.model.EnumInstance;
 import org.edward.onion.bind.model.Peel;
+import org.edward.onion.tool.Box;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
