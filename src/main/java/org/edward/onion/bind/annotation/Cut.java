@@ -12,7 +12,7 @@ public @interface Cut {
      * 标签
      * @return
      */
-    String tag();
+    String tag() default "";
 
     /**
      * 是否可用
@@ -36,7 +36,7 @@ public @interface Cut {
      * 转换定义
      * @return
      */
-    Class<? extends Enum> convertDefination() default CONVERT.class;
+    Class<? extends Enum> convertDefinition() default CONVERT.class;
 
     /**
      * 转换的key
